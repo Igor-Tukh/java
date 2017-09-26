@@ -11,19 +11,9 @@ public class List {
     private ListNode tail;
 
     /**
-     * List class constructor.
-     */
-
-    public List() {
-        size = 0;
-        head = null;
-        tail = null;
-    }
-
-    /**
      * getSize method. Returns size of List.
      *
-     * @return (int) size of List.
+     * @return size of List.
      */
 
     public int getSize() {
@@ -34,7 +24,7 @@ public class List {
      * findNode method. Returns ListNode with a key field equals to param key and null otherwise.
      *
      * @param key search string param;
-     * @return ListNode with a key field equals to param key and null otherwise.
+     * @return Node with a key field equals to param key and null otherwise.
      */
 
     private ListNode findNode(String key) {
@@ -54,7 +44,7 @@ public class List {
      * get method. Returns value fit key if it contains in List and null otherwise.
      *
      * @param key searching string param;
-     * @return string value fit key if it contains in List  and null otherwise
+     * @return value fit key if it contains in List  and null otherwise
      */
 
     public String get(String key) {
@@ -64,7 +54,6 @@ public class List {
         } else {
             return null;
         }
-
     }
 
     /**
@@ -73,12 +62,13 @@ public class List {
      *
      * @param key   string key value;
      * @param value string value value;
-     * @return null if key doesn't contain in List yet and (string) value otherwise.
+     * @return null if key doesn't contain in List yet and value otherwise.
      */
 
     public String put(String key, String value) {
         ListNode previousNode = findNode(key);
         if (previousNode == null) {
+            size++;
             ListNode node = new ListNode(key, value);
             if (tail == null) {
                 head = node;
@@ -110,6 +100,8 @@ public class List {
             return null;
         } else {
             if (node == head) {
+                if (tail == head)
+                    tail = null;
                 head = node.next;
             } else {
                 node.prev.next = node.next;
@@ -123,8 +115,8 @@ public class List {
     /**
      * contains method. Checks if key contains in List;
      *
-     * @param key string key param
-     * @return boolean: true if key contains, false otherwise.
+     * @param key checking key.
+     * @return true if key contains, false otherwise.
      */
 
     public boolean contains(String key) {
@@ -142,27 +134,45 @@ public class List {
     }
 
     /**
+     * getKey method. Returns key of node which order number is index (from zero to size minus one) or null string if
+     * index is greater than size of List or lower than zero.
+     *
+     * @param index in List of searching node.
+     */
+
+    public String getKey(int index) {
+        if (index >= size || index < 0) {
+            return null;
+        } else {
+            ListNode cur = head;
+            for (int i = 0; i < index; i++) {
+                cur = cur.next;
+            }
+            return cur.key;
+        }
+    }
+
+    /**
      * Inner class ListNode for nodes of List. Consist of key and value string fields and ListNode links next(next node
      * in List) and prev(previous node in List)
      */
-    private class ListNode {
+
+    private static class ListNode {
         private String key;
         private String value;
-        private ListNode next, prev;
+        private ListNode next;
+        private ListNode prev;
 
         /**
          * ListNode class constructor.
          *
-         * @param _key   initilization string value of key field
-         * @param _value initilization string value of value field
+         * @param key   initilization string value of key field
+         * @param value initilization string value of value field
          */
 
-        ListNode(String _key, String _value) {
-            key = _key;
-            value = _value;
-            next = null;
-            prev = null;
-            size++;
+        ListNode(String key, String value) {
+            this.key = key;
+            this.value = value;
         }
     }
 }
