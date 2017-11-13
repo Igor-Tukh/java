@@ -1,9 +1,10 @@
 package ru.spbau.mit.tukh.hw03.Trie;
 
 import java.io.*;
+import java.util.HashMap;
 
 /**
- * Class Trie. Specialized for storage strings consist of english lowercase literals.
+ * Class Trie. Contains strings.
  */
 public class Trie implements Serializable {
     private TrieNode root;
@@ -18,7 +19,7 @@ public class Trie implements Serializable {
     /**
      * add method. Inserts element into the Trie.
      *
-     * @param element is string adding to the Trie. Must consist of english lowercase literals.
+     * @param element is string adding to the Trie.
      * @return true if there wasn't string equal to element yet and false otherwise.
      */
     public boolean add(String element) {
@@ -132,12 +133,12 @@ public class Trie implements Serializable {
      * Private class TrieNode (vertexes of Trie).
      */
     private static class TrieNode implements Serializable {
-        int frequency;
-        private TrieNode[] next;
-        boolean isTerminal;
+        private int frequency;
+        private HashMap<Character, TrieNode> next;
+        private boolean isTerminal;
 
         private TrieNode() {
-            next = new TrieNode[26]; // HashMap?
+            next = new HashMap<>();
             frequency = 0;
             isTerminal = false;
         }
@@ -155,11 +156,11 @@ public class Trie implements Serializable {
         }
 
         private TrieNode getNext(char character) {
-            return next[character - 'a']; // only lower register literals
+            return next.get(character);
         }
 
         private void addNext(char character) {
-            next[character - 'a'] = new TrieNode();
+            next.put(character, new TrieNode());
         }
     }
 }

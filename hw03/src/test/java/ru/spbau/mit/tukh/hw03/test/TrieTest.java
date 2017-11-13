@@ -10,44 +10,64 @@ import static org.junit.Assert.*;
 
 public class TrieTest {
     @Test
-    public void add() {
+    public void testAddSimple() {
         Trie tr = new Trie();
-        assertEquals(true, tr.add("it"));
-        assertEquals(true, tr.add("is"));
-        assertEquals(true, tr.add("bor"));
-        assertEquals(false, tr.add("bor"));
-        assertEquals(false, tr.add("is"));
-        tr.remove("is");
-        assertEquals(true, tr.add("is"));
+        assertTrue(tr.add("it"));
+        assertTrue(tr.add("is"));
     }
 
     @Test
-    public void contains() {
+    public void testAddDuplicate() {
         Trie tr = new Trie();
-        assertEquals(false, tr.contains("aba"));
-        assertEquals(false, tr.contains("abacabadabacabaeabacabadabacaba"));
+        assertTrue(tr.add("bor"));
+        assertFalse(tr.add("bor"));
+    }
+
+    @Test
+    public void testAddAfterRemove() {
+        Trie tr = new Trie();
+        assertTrue(tr.add("is"));
+        tr.remove("is");
+        assertTrue(tr.add("is"));
+    }
+
+    @Test
+    public void testContainsSimple() {
+        Trie tr = new Trie();
+        assertFalse(tr.contains("aba"));
+        assertFalse(tr.contains("abacabadabacabaeabacabadabacaba"));
         tr.add("aba");
         tr.add("abacabadabacabaeabacabadabacaba");
-        assertEquals(true, tr.contains("aba"));
-        assertEquals(true, tr.contains("abacabadabacabaeabacabadabacaba"));
+        assertTrue(tr.contains("aba"));
+        assertTrue(tr.contains("abacabadabacabaeabacabadabacaba"));
         tr.remove("aba");
-        assertEquals(false, tr.contains("aba"));
+        assertFalse(tr.contains("aba"));
         tr.add("aba");
-        assertEquals(true, tr.contains("aba"));
+        assertTrue(tr.contains("aba"));
     }
 
     @Test
-    public void remove() {
+    public void testContainsAfterRemove() {
+        Trie tr = new Trie();
+        tr.add("aba");
+        tr.remove("aba");
+        assertFalse(tr.contains("aba"));
+        tr.add("aba");
+        assertTrue(tr.contains("aba"));
+    }
+
+    @Test
+    public void testRemove() {
         Trie tr = new Trie();
         tr.add("expected");
         tr.add("ex");
-        assertEquals(true, tr.remove("ex"));
-        assertEquals(false, tr.remove("ex"));
-        assertEquals(true, tr.remove("expected"));
+        assertTrue(tr.remove("ex"));
+        assertFalse(tr.remove("ex"));
+        assertTrue(tr.remove("expected"));
     }
 
     @Test
-    public void size() {
+    public void testSizeOnlyAdd() {
         Trie tr = new Trie();
         assertEquals(0, tr.size());
         tr.add("boooom");
@@ -56,6 +76,15 @@ public class TrieTest {
         assertEquals(1, tr.size());
         tr.add("bom");
         assertEquals(2, tr.size());
+        tr.add("aba");
+        assertEquals(3, tr.size());
+    }
+
+    @Test
+    public void testSizeAfterRemove() {
+        Trie tr = new Trie();
+        tr.add("boooom");
+        tr.add("bom");
         tr.add("aba");
         assertEquals(3, tr.size());
         tr.remove("boooom");
@@ -67,7 +96,7 @@ public class TrieTest {
     }
 
     @Test
-    public void howManyStartsWithPrefix() {
+    public void testHowManyStartsWithPrefixOnlyAdd() {
         Trie tr = new Trie();
         assertEquals(0, tr.howManyStartsWithPrefix("a"));
         assertEquals(0, tr.howManyStartsWithPrefix("ab"));
@@ -84,6 +113,14 @@ public class TrieTest {
         assertEquals(3, tr.howManyStartsWithPrefix("a"));
         assertEquals(2, tr.howManyStartsWithPrefix("ab"));
         assertEquals(1, tr.howManyStartsWithPrefix("abc"));
+    }
+
+    @Test
+    public void testHowManyStartsWithPrefixAfterRemove() {
+        Trie tr = new Trie();
+        tr.add("a");
+        tr.add("ab");
+        tr.add("abc");
         tr.remove("ab");
         assertEquals(2, tr.howManyStartsWithPrefix("a"));
         assertEquals(1, tr.howManyStartsWithPrefix("ab"));
@@ -95,7 +132,7 @@ public class TrieTest {
     }
 
     @Test
-    public void serialize() throws Exception {
+    public void testSerializeSimilarStrings() throws Exception {
         Trie t = new Trie();
         t.add("aaaa");
         t.add("aaab");
@@ -103,27 +140,24 @@ public class TrieTest {
         t.add("aaad");
 
         ByteArrayOutputStream baoscopy = null;
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            t.serialize(baos);
-            baoscopy = baos;
-        } catch (Throwable e) {
-            System.err.println("Error during the serialization.");
-            System.exit(1);
-        }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        t.serialize(baos);
+        baoscopy = baos;
 
         ByteArrayInputStream bais = new ByteArrayInputStream(baoscopy.toByteArray());
         t.deserialize(bais);
         bais.close();
+        baos.close();
 
         assertEquals(4, t.size());
-        assertEquals(true, t.contains("aaaa"));
-        assertEquals(true, t.contains("aaab"));
-        assertEquals(true, t.contains("aaac"));
-        assertEquals(true, t.contains("aaad"));
+        assertTrue(t.contains("aaaa"));
+        assertTrue(t.contains("aaab"));
+        assertTrue(t.contains("aaac"));
+        assertTrue(t.contains("aaad"));
     }
 
     @Test
-    public void deserialize() throws Exception {
+    public void testDeserializeSimilarStrings() throws Exception {
         Trie t = new Trie();
         t.add("aaaaa");
         t.add("aaaab");
@@ -134,17 +168,14 @@ public class TrieTest {
         t.serialize(baos);
         baos.close();
 
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray())) {
-            t.deserialize(bais);
-        } catch (Throwable e) {
-            System.err.println("Error during the deserialization.");
-            System.exit(1);
-        }
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        t.deserialize(bais);
+        bais.close();
 
         assertEquals(4, t.size());
-        assertEquals(true, t.contains("aaaaa"));
-        assertEquals(true, t.contains("aaaab"));
-        assertEquals(true, t.contains("aaaac"));
-        assertEquals(true, t.contains("aaaad"));
+        assertTrue(t.contains("aaaaa"));
+        assertTrue(t.contains("aaaab"));
+        assertTrue(t.contains("aaaac"));
+        assertTrue(t.contains("aaaad"));
     }
 }
