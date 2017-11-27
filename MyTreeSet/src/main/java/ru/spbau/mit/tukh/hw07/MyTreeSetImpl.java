@@ -102,7 +102,6 @@ public class MyTreeSetImpl<E> extends AbstractSet<E> implements MyTreeSet<E> {
         return false;
     }
 
-    /*
     private boolean removeNode(Node<E> cur, Object o) {
         if (cur == null) {
             return false;
@@ -132,20 +131,41 @@ public class MyTreeSetImpl<E> extends AbstractSet<E> implements MyTreeSet<E> {
             }
 
             if (cur.r == null) {
+                if (cur.p != null) {
+                    if (cur.p.l == cur) {
+                        cur.p.l = cur.l;
+                    } else {
+                        cur.p.r = cur.l;
+                    }
+                } else {
+                    root = cur.l;
+                }
+                return true;
+            }
+
+            if (cur.l == null) {
+                if (cur.p != null) {
+                    if (cur.p.l == cur) {
+                        cur.p.l = cur.r;
+                    } else {
+                        cur.p.r = cur.r;
+                    }
+                } else {
+                    root = cur.r;
+                }
+                return true;
             }
         } catch (ClassCastException e) {
             return false;
         }
-
         return true;
-    }*/
+    }
 
     /**
      * Remove method erases given object from the set if it was there.
      * @param o is value to erase.
      * @return if there was such element in the set.
      */
-    /*
     @Override
     public boolean remove(Object o) {
         boolean ans = removeNode(root, o);
@@ -153,7 +173,7 @@ public class MyTreeSetImpl<E> extends AbstractSet<E> implements MyTreeSet<E> {
             size--;
         }
         return ans;
-    }*/
+    }
 
     /**
      * Iterator (increasing order).
