@@ -11,7 +11,7 @@ public class ParserTest {
     @Test
     public void toPolishSimpleTest() throws Exception {
         p = new Parser("1 + 1");
-        assertEquals("1  1 + ", p.toPolish());
+        assertEquals("1  1 +", p.toPolish());
     }
 
     @Test
