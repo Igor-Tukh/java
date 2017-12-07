@@ -4,6 +4,7 @@ package ru.spbau.mit.tukh.hw05.Tree;
  * class Tree is realization of binary search tree without remove method.
  * Content class must implement Comparable interface.
  * Note: it isn't balanced.
+ *
  * @param <T> is type of value which tree storage.
  */
 public class Tree<T extends Comparable<T>> {
@@ -12,7 +13,7 @@ public class Tree<T extends Comparable<T>> {
         private Node<T> left;
         private Node<T> right;
 
-        private Node(T value){
+        private Node(T value) {
             this.value = value;
         }
     }
@@ -21,7 +22,7 @@ public class Tree<T extends Comparable<T>> {
     private int size;
 
     private Node<T> addNode(Node<T> cur, T value) {
-        if (cur == null){
+        if (cur == null) {
             return new Node<>(value);
         }
 
@@ -36,6 +37,7 @@ public class Tree<T extends Comparable<T>> {
 
     /**
      * add method. Adds value to the tree if it hasn't added yet.
+     *
      * @param value is adding value.
      * @return true if there wasn't givven value in the tree and false otherwise.
      */
@@ -46,7 +48,7 @@ public class Tree<T extends Comparable<T>> {
 
         if (root == null) {
             root = new Node<>(value);
-        } else{
+        } else {
             root = addNode(root, value);
         }
         size++;
@@ -56,6 +58,7 @@ public class Tree<T extends Comparable<T>> {
 
     /**
      * size method returns size of the tree.
+     *
      * @return number of elements in the tree.
      */
     public int size() {
@@ -64,6 +67,7 @@ public class Tree<T extends Comparable<T>> {
 
     /**
      * Contains method checks if there is given value in the tree.
+     *
      * @param value is checking value.
      * @return true if there is given value in the tree and false otherwise.
      */
@@ -71,7 +75,7 @@ public class Tree<T extends Comparable<T>> {
         Node<T> cur = root;
         while (cur != null) {
             int cmp = cur.value.compareTo(value);
-            if (cmp < 0){
+            if (cmp < 0) {
                 cur = cur.right;
             } else if (cmp == 0) {
                 return true;

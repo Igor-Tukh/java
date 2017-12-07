@@ -9,11 +9,11 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class TreeTest{
+public class TreeTest {
     @Test
     public void testAddInt() throws Exception {
         Tree<Integer> treeInt = createInt();
-        for(int i = 0; i < 15; i++) {
+        for (int i = 0; i < 15; i++) {
             assertTrue(treeInt.contains(i));
         }
         assertFalse(treeInt.contains(-1));
@@ -25,7 +25,7 @@ public class TreeTest{
     @Test
     public void testAddMyClass() throws Exception {
         Tree<myClass> treeInt = createMyClass();
-        for(int i = 0; i < 15; i++) {
+        for (int i = 0; i < 15; i++) {
             assertTrue(treeInt.contains(new myClass(i / 3, i % 3)));
         }
         assertFalse(treeInt.contains(new myClass(-1, -1)));
@@ -62,15 +62,15 @@ public class TreeTest{
     public void testContainsIntegerRandomOrder() throws Exception {
         Tree<Integer> tr = new Tree<>();
         List<Integer> numbers = new ArrayList<>();
-        for(int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++) {
             numbers.add(i);
         }
         Collections.shuffle(numbers);
-        for(Integer number: numbers) {
+        for (Integer number : numbers) {
             assertFalse(tr.contains(number));
             tr.add(number);
         }
-        for(Integer number: numbers) {
+        for (Integer number : numbers) {
             assertTrue(tr.contains(number));
         }
     }
@@ -88,16 +88,16 @@ public class TreeTest{
     @Test
     public void testContainsMyClass() throws Exception {
         Tree<myClass> tr = new Tree<>();
-        assertFalse(tr.contains(new myClass(0,0)));
-        tr.add(new myClass(0,0));
-        assertTrue(tr.contains(new myClass(0,0)));
-        tr.add(new myClass(0,0));
-        assertTrue(tr.contains(new myClass(0,0)));
+        assertFalse(tr.contains(new myClass(0, 0)));
+        tr.add(new myClass(0, 0));
+        assertTrue(tr.contains(new myClass(0, 0)));
+        tr.add(new myClass(0, 0));
+        assertTrue(tr.contains(new myClass(0, 0)));
     }
 
     private Tree<Integer> createInt() {
         Tree<Integer> tr = new Tree<>();
-        for(int i = 0; i < 15; i++) {
+        for (int i = 0; i < 15; i++) {
             tr.add(i);
         }
         tr.add(0);
@@ -106,8 +106,8 @@ public class TreeTest{
 
     private Tree<myClass> createMyClass() {
         Tree<myClass> tr = new Tree<>();
-        for(int i = 0; i < 5; i++) {
-            for(int j = 0; j < 3; j++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 3; j++) {
                 tr.add(new myClass(i, j));
             }
         }
