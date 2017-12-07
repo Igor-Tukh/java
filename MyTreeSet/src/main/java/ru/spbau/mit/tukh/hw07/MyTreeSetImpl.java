@@ -163,6 +163,7 @@ public class MyTreeSetImpl<E> extends AbstractSet<E> implements MyTreeSet<E> {
 
     /**
      * Remove method erases given object from the set if it was there.
+     *
      * @param o is value to erase.
      * @return if there was such element in the set.
      */
