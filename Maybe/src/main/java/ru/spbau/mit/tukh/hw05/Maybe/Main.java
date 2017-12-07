@@ -13,12 +13,13 @@ public class Main {
     /**
      * main method. Tries to read all numbers in file input.txt and for each successful read writes line with its square
      * to output.txt. For other writes null.
+     *
      * @param args may contain everything, it doesn't matter.
      * @throws IOException according to files input.txt and output.txt.
      */
     public static void main(String[] args) throws IOException {
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader("input.txt"));
-            PrintWriter out = new PrintWriter("output.txt")) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("input.txt"));
+             PrintWriter out = new PrintWriter("output.txt")) {
             StringTokenizer in;
 
             String string;

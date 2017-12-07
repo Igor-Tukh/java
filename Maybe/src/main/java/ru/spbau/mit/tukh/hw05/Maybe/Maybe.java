@@ -7,9 +7,10 @@ import java.util.function.Function;
 
 /**
  * class Maybe contains value (except null) or nothing.
+ *
  * @param <T> is type of storing value.
  */
-public class Maybe <T> {
+public class Maybe<T> {
     static private Maybe nothing = new Maybe<>(null);
     private T value;
 
@@ -19,7 +20,8 @@ public class Maybe <T> {
 
     /**
      * just returns Maybe which contains value.
-     * @param t is value which returning Maybe will storage.
+     *
+     * @param t   is value which returning Maybe will storage.
      * @param <T> is type of value which Maybe storage.
      * @return new Maybe containing value.
      */
@@ -29,6 +31,7 @@ public class Maybe <T> {
 
     /**
      * nothing return empty Maybe.
+     *
      * @param <T> is type of shell.
      * @return shell which contains nothing.
      */
@@ -38,6 +41,7 @@ public class Maybe <T> {
 
     /**
      * get the value of not-empty shell.
+     *
      * @return value if Maybe isn't empty and throws exception otherwise.
      * @throws NothingException if shel is empty.
      */
@@ -50,6 +54,7 @@ public class Maybe <T> {
 
     /**
      * isPresent checks if shell is empty.
+     *
      * @return true if Maybe contains value and false otherwise.
      */
     public boolean isPresent() {
@@ -58,12 +63,13 @@ public class Maybe <T> {
 
     /**
      * map executes given function to not-empty shell and returns new nothing otherwise.
+     *
      * @param mapper is function which could be executed to not-empty shell with returning type U.
-     * @param <U> is function returning type.
+     * @param <U>    is function returning type.
      * @return empty shell for empty shell and result of map in shel otherwise.
      */
     public <U> Maybe<U> map(Function<? super T, U> mapper) {
-        if (!isPresent()){
+        if (!isPresent()) {
             return Maybe.nothing();
         }
 
