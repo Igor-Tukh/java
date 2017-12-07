@@ -1,7 +1,7 @@
-package ru.spbau.mit.tukh.hw08.test.Predicate;
+package ru.spbau.mit.tukh.hw08.test;
 
 import org.junit.Test;
-import ru.spbau.mit.tukh.hw08.Function.Predicate.Predicate;
+import ru.spbau.mit.tukh.hw08.Collections.Predicate;
 
 import static org.junit.Assert.*;
 
@@ -78,8 +78,8 @@ public class PredicateTest {
 
     @Test
     public void testALWAYS_TRUE() throws Exception {
-        Predicate<String> t1 = Predicate.ALWAYS_TRUE();
-        Predicate<Integer> t2 = Predicate.ALWAYS_TRUE();
+        Predicate<String> t1 = Predicate.alwaysTrue();
+        Predicate<Integer> t2 = Predicate.alwaysTrue();
         assertTrue(t1.apply("239"));
         assertTrue(t2.apply(239));
         assertTrue(t1.apply("0"));
@@ -88,8 +88,8 @@ public class PredicateTest {
 
     @Test
     public void ALWAYS_FALSE() throws Exception {
-        Predicate<String> f1 = Predicate.ALWAYS_FALSE();
-        Predicate<Integer> f2 = Predicate.ALWAYS_FALSE();
+        Predicate<String> f1 = Predicate.alwaysFalse();
+        Predicate<Integer> f2 = Predicate.alwaysFalse();
         assertFalse(f1.apply("239"));
         assertFalse(f2.apply(239));
         assertFalse(f1.apply("0"));

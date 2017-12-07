@@ -1,12 +1,11 @@
-package ru.spbau.mit.tukh.hw08.Function.Predicate;
-
-import ru.spbau.mit.tukh.hw08.Function.Function1.Function1;
+package ru.spbau.mit.tukh.hw08.Collections;
 
 /**
  * interface Predicate describes predicate of one argument(expression).
  *
  * @param <T> is type of argument.
  */
+@FunctionalInterface
 public interface Predicate<T> extends Function1<T, Boolean> {
     /**
      * generates new predicate result of which calculating is logical or of this and given.
@@ -42,7 +41,7 @@ public interface Predicate<T> extends Function1<T, Boolean> {
      *
      * @return predicate result of which applicating is always true.
      */
-    static Predicate ALWAYS_TRUE() {
+    static <T> Predicate<T> alwaysTrue() {
         return (t -> Boolean.TRUE);
     }
 
@@ -51,7 +50,7 @@ public interface Predicate<T> extends Function1<T, Boolean> {
      *
      * @return predicate result of which applicating is always false.
      */
-    static Predicate ALWAYS_FALSE() {
+    static <T> Predicate<T> alwaysFalse() {
         return (t -> Boolean.FALSE);
     }
 }

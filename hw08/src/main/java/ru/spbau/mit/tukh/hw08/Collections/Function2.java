@@ -1,6 +1,4 @@
-package ru.spbau.mit.tukh.hw08.Function.Function2;
-
-import ru.spbau.mit.tukh.hw08.Function.Function1.Function1;
+package ru.spbau.mit.tukh.hw08.Collections;
 
 /**
  * interface Function2 describes function with two arguments.
@@ -9,6 +7,7 @@ import ru.spbau.mit.tukh.hw08.Function.Function1.Function1;
  * @param <U> is type of second argument.
  * @param <R> is type of returning value.
  */
+@FunctionalInterface
 public interface Function2<T, U, R> {
     /**
      * apply method returns result of application function to given arguments.

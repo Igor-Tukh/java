@@ -1,10 +1,10 @@
-package ru.spbau.mit.tukh.hw08.test.Collections;
+package ru.spbau.mit.tukh.hw08.test;
 
 import org.junit.Test;
 import ru.spbau.mit.tukh.hw08.Collections.*;
-import ru.spbau.mit.tukh.hw08.Function.Function1.Function1;
-import ru.spbau.mit.tukh.hw08.Function.Function2.Function2;
-import ru.spbau.mit.tukh.hw08.Function.Predicate.Predicate;
+import ru.spbau.mit.tukh.hw08.Collections.Function1;
+import ru.spbau.mit.tukh.hw08.Collections.Function2;
+import ru.spbau.mit.tukh.hw08.Collections.Predicate;
 
 import java.util.ArrayList;
 import java.util.List;

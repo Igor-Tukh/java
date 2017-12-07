@@ -1,9 +1,5 @@
 package ru.spbau.mit.tukh.hw08.Collections;
 
-import ru.spbau.mit.tukh.hw08.Function.Function1.Function1;
-import ru.spbau.mit.tukh.hw08.Function.Function2.Function2;
-import ru.spbau.mit.tukh.hw08.Function.Predicate.Predicate;
-
 import java.util.ArrayList;
 import java.util.List;
 

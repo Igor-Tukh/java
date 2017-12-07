@@ -1,7 +1,7 @@
-package ru.spbau.mit.tukh.hw08.test.Function1;
+package ru.spbau.mit.tukh.hw08.test;
 
 import org.junit.Test;
-import ru.spbau.mit.tukh.hw08.Function.Function1.Function1;
+import ru.spbau.mit.tukh.hw08.Collections.Function1;
 
 import static org.junit.Assert.*;
 

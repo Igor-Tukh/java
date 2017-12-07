@@ -1,4 +1,4 @@
-package ru.spbau.mit.tukh.hw08.Function.Function1;
+package ru.spbau.mit.tukh.hw08.Collections;
 
 /**
  * interface Function1 describes function with one argument.
@@ -6,6 +6,7 @@ package ru.spbau.mit.tukh.hw08.Function.Function1;
  * @param <T> is type of argument.
  * @param <R> is type of returning value.
  */
+@FunctionalInterface
 public interface Function1<T, R> {
     /**
      * apply method returns result of application function to given argument.
