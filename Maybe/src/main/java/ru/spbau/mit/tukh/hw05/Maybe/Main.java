@@ -11,44 +11,42 @@ import java.util.StringTokenizer;
  */
 public class Main {
     /**
-     * main method. Tries to read all numbers in file input.txt and for each successful red writes line with its square
+     * main method. Tries to read all numbers in file input.txt and for each successful read writes line with its square
      * to output.txt. For other writes null.
      * @param args may contain everything, it doesn't matter.
      * @throws IOException according to files input.txt and output.txt.
      */
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("input.txt"));
-        PrintWriter out = new PrintWriter("output.txt");
-        StringTokenizer in;
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader("input.txt"));
+            PrintWriter out = new PrintWriter("output.txt")) {
+            StringTokenizer in;
 
-        String s;
-        Integer number;
-        Maybe<Integer> mb;
+            String string;
+            Integer number;
+            Maybe<Integer> maybe;
 
-        while ((s = br.readLine()) != null){
-            in = new StringTokenizer(s);
+            while ((string = bufferedReader.readLine()) != null) {
+                in = new StringTokenizer(string);
 
-            while (in.hasMoreTokens()){
-                try{
-                    number = Integer.parseInt(in.nextToken());
-                    mb = Maybe.just(number);
-                } catch (NumberFormatException e){
-                    mb = Maybe.nothing();
-                }
-
-                if (!mb.isPresent()){
-                    out.println("null");
-                } else{
+                while (in.hasMoreTokens()) {
                     try {
-                        out.println(mb.get() * mb.get());
-                    } catch (NothingException e) {
-                        e.printStackTrace();
+                        number = Integer.parseInt(in.nextToken());
+                        maybe = Maybe.just(number);
+                    } catch (NumberFormatException e) {
+                        maybe = Maybe.nothing();
+                    }
+
+                    if (!maybe.isPresent()) {
+                        out.println("null");
+                    } else {
+                        try {
+                            out.println(maybe.get() * maybe.get());
+                        } catch (NothingException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
         }
-
-        out.close();
-        br.close();
     }
 }

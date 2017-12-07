@@ -6,57 +6,34 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class MaybeTest {
-    @Test
-    public void testJust() throws Exception{
-        Maybe<Integer> mb1 = Maybe.just(239);
-        Maybe<Integer> mb2 = Maybe.nothing();
-        boolean failed = false;
-
-        try{
-            assertEquals(new Integer(239), mb1.get());
-        } catch (NothingException e){
-            System.err.println("Something is wrong in just");
-            System.exit(1);
-        }
-
-        try{
-            mb2.get();
-        } catch(NothingException e){
-            failed = true;
-        }
-
-        assertTrue(failed);
+    @Test(expected = NothingException.class)
+    public void testJustNothing() throws Exception, NothingException {
+        Maybe<Integer> nothing = Maybe.nothing();
+        nothing.get();
     }
 
     @Test
-    public void testNothing() throws Exception{
-        Maybe<Integer> mb = Maybe.nothing();
-        boolean failed = false;
-        try{
-            mb.get();
-        } catch(NothingException e){
-            failed = true;
-        }
-        assertTrue(failed);
-        assertFalse(mb.isPresent());
+    public void testJust() throws Exception, NothingException {
+        Maybe<Integer> maybe = Maybe.just(239);
+        assertEquals(new Integer(239), maybe.get());
     }
 
     @Test
-    public void testGet() throws Exception{
-        Maybe<Integer> mb1 = Maybe.just(239);
-        Maybe<String> mb2 = Maybe.just("239");
-
-        try{
-            assertEquals(new Integer(239), mb1.get());
-            assertEquals("239", mb2.get());
-        } catch (NothingException e){
-            System.err.println("Something is wrong in get");
-            System.exit(1);
-        }
+    public void testIsPresentNothing() throws Exception {
+        Maybe<Integer> nothing = Maybe.nothing();
+        assertFalse(nothing.isPresent());
     }
 
     @Test
-    public void testIsPresent() throws Exception{
+    public void testGet() throws Exception, NothingException {
+        Maybe<Integer> maybe1 = Maybe.just(239);
+        Maybe<String> maybe2 = Maybe.just("239");
+        assertEquals(new Integer(239), maybe1.get());
+        assertEquals("239", maybe2.get());
+    }
+
+    @Test
+    public void testIsPresent() throws Exception {
         Maybe<Integer> mb1 = Maybe.just(239);
         Maybe<Integer> mb2 = Maybe.nothing();
         assertTrue(mb1.isPresent());
@@ -64,13 +41,14 @@ public class MaybeTest {
     }
 
     @Test
-    public void mapTest() throws Exception {
-        Maybe<Integer> mb1 = Maybe.just(239);
-        try{
-            assertEquals(mb1.map(Object::toString).get(), "239");
-        } catch (NothingException e){
-            System.err.println("Something is wrong in map.");
-            System.exit(1);
-        }
+    public void testNothing() throws Exception, NothingException {
+        Maybe<Integer> maybe = Maybe.just(239);
+        assertEquals("239", maybe.map(Object::toString).get());
+    }
+
+    @Test
+    public void testMapNothing() throws Exception, NothingException {
+        Maybe<Integer> maybe = Maybe.nothing();
+        assertFalse(maybe.map(Object::toString).isPresent());
     }
 }

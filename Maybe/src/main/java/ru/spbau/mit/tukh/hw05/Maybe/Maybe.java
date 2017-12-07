@@ -1,13 +1,19 @@
 package ru.spbau.mit.tukh.hw05.Maybe;
 
-import com.sun.istack.internal.NotNull;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
-public class Maybe <T>{
+/**
+ * class Maybe contains value (except null) or nothing.
+ * @param <T> is type of storing value.
+ */
+public class Maybe <T> {
+    static private Maybe nothing = new Maybe<>(null);
     private T value;
 
-    private Maybe(T t){
+    private Maybe(T t) {
         value = t;
     }
 
@@ -17,7 +23,7 @@ public class Maybe <T>{
      * @param <T> is type of value which Maybe storage.
      * @return new Maybe containing value.
      */
-    public static <T> Maybe<T> just(@NotNull T t){
+    public static <T> Maybe<T> just(@NotNull T t) {
         return new Maybe<>(t);
     }
 
@@ -26,8 +32,8 @@ public class Maybe <T>{
      * @param <T> is type of shell.
      * @return shell which contains nothing.
      */
-    public static <T> Maybe<T> nothing(){
-        return new Maybe<>(null);
+    public static <T> Maybe<T> nothing() {
+        return nothing;
     }
 
     /**
@@ -35,8 +41,8 @@ public class Maybe <T>{
      * @return value if Maybe isn't empty and throws exception otherwise.
      * @throws NothingException if shel is empty.
      */
-    public T get() throws NothingException{
-        if (value != null){
+    public T get() throws NothingException {
+        if (value != null) {
             return value;
         }
         throw new NothingException("get: this is nothing");
@@ -46,7 +52,7 @@ public class Maybe <T>{
      * isPresent checks if shell is empty.
      * @return true if Maybe contains value and false otherwise.
      */
-    public boolean isPresent(){
+    public boolean isPresent() {
         return value != null;
     }
 
@@ -56,7 +62,7 @@ public class Maybe <T>{
      * @param <U> is function returning type.
      * @return empty shell for empty shell and result of map in shel otherwise.
      */
-    public <U> Maybe<U> map(Function<? super T, U> mapper){
+    public <U> Maybe<U> map(Function<? super T, U> mapper) {
         if (!isPresent()){
             return Maybe.nothing();
         }
