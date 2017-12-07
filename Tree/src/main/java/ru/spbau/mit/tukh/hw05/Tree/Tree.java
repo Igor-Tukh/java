@@ -6,30 +6,31 @@ package ru.spbau.mit.tukh.hw05.Tree;
  * Note: it isn't balanced.
  * @param <T> is type of value which tree storage.
  */
-public class Tree<T extends Comparable<T>>{
-    private static class Node<T>{
-        private T x;
-        private Node<T> l, r;
+public class Tree<T extends Comparable<T>> {
+    private static class Node<T> {
+        private T value;
+        private Node<T> left;
+        private Node<T> right;
 
-        Node(T value){
-            x = value;
+        private Node(T value){
+            this.value = value;
         }
     }
 
     private Node<T> root;
     private int size;
 
-    private Node<T> addNode(Node<T> cur, T value){
+    private Node<T> addNode(Node<T> cur, T value) {
         if (cur == null){
             return new Node<>(value);
         }
 
-        if (value.compareTo(cur.x) < 0){
-            cur.l = addNode(cur.l, value);
+        if (value.compareTo(cur.value) < 0) {
+            cur.left = addNode(cur.left, value);
             return cur;
         }
 
-        cur.r = addNode(cur.r, value);
+        cur.right = addNode(cur.right, value);
         return cur;
     }
 
@@ -38,12 +39,12 @@ public class Tree<T extends Comparable<T>>{
      * @param value is adding value.
      * @return true if there wasn't givven value in the tree and false otherwise.
      */
-    public boolean add(T value){
-        if (contains(value)){
+    public boolean add(T value) {
+        if (contains(value)) {
             return false;
         }
 
-        if (root == null){
+        if (root == null) {
             root = new Node<>(value);
         } else{
             root = addNode(root, value);
@@ -57,7 +58,7 @@ public class Tree<T extends Comparable<T>>{
      * size method returns size of the tree.
      * @return number of elements in the tree.
      */
-    public int size(){
+    public int size() {
         return size;
     }
 
@@ -66,16 +67,16 @@ public class Tree<T extends Comparable<T>>{
      * @param value is checking value.
      * @return true if there is given value in the tree and false otherwise.
      */
-    public boolean contains(T value){
+    public boolean contains(T value) {
         Node<T> cur = root;
-        while (cur != null){
-            int cmp = cur.x.compareTo(value);
+        while (cur != null) {
+            int cmp = cur.value.compareTo(value);
             if (cmp < 0){
-                cur = cur.r;
-            } else if (cmp == 0){
+                cur = cur.right;
+            } else if (cmp == 0) {
                 return true;
             } else {
-                cur = cur.r;
+                cur = cur.left;
             }
         }
 

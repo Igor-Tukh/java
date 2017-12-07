@@ -2,11 +2,16 @@ package ru.spbau.mit.tukh.hw05.test;
 
 import ru.spbau.mit.tukh.hw05.Tree.*;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class TreeTest{
     @Test
-    public void testAddInt() throws Exception{
+    public void testAddInt() throws Exception {
         Tree<Integer> treeInt = createInt();
         for(int i = 0; i < 15; i++) {
             assertTrue(treeInt.contains(i));
@@ -18,7 +23,7 @@ public class TreeTest{
     }
 
     @Test
-    public void testAddMyClass() throws Exception{
+    public void testAddMyClass() throws Exception {
         Tree<myClass> treeInt = createMyClass();
         for(int i = 0; i < 15; i++) {
             assertTrue(treeInt.contains(new myClass(i / 3, i % 3)));
@@ -30,7 +35,7 @@ public class TreeTest{
     }
 
     @Test
-    public void testMyClassSize() throws Exception{
+    public void testMyClassSize() throws Exception {
         Tree<myClass> tr = new Tree<>();
         assertEquals(0, tr.size());
         tr.add(new myClass(-1, -1));
@@ -42,7 +47,7 @@ public class TreeTest{
     }
 
     @Test
-    public void testIntegerSize() throws Exception{
+    public void testIntegerSize() throws Exception {
         Tree<Integer> tr = new Tree<>();
         assertEquals(0, tr.size());
         tr.add(-1);
@@ -54,7 +59,24 @@ public class TreeTest{
     }
 
     @Test
-    public void testContainsInt() throws Exception{
+    public void testContainsIntegerRandomOrder() throws Exception {
+        Tree<Integer> tr = new Tree<>();
+        List<Integer> numbers = new ArrayList<>();
+        for(int i = 0; i < 20; i++) {
+            numbers.add(i);
+        }
+        Collections.shuffle(numbers);
+        for(Integer number: numbers) {
+            assertFalse(tr.contains(number));
+            tr.add(number);
+        }
+        for(Integer number: numbers) {
+            assertTrue(tr.contains(number));
+        }
+    }
+
+    @Test
+    public void testContainsInt() throws Exception {
         Tree<Integer> tr = new Tree<>();
         assertFalse(tr.contains(0));
         tr.add(0);
@@ -64,7 +86,7 @@ public class TreeTest{
     }
 
     @Test
-    public void testContainsMyClass() throws Exception{
+    public void testContainsMyClass() throws Exception {
         Tree<myClass> tr = new Tree<>();
         assertFalse(tr.contains(new myClass(0,0)));
         tr.add(new myClass(0,0));
@@ -73,19 +95,19 @@ public class TreeTest{
         assertTrue(tr.contains(new myClass(0,0)));
     }
 
-    private Tree<Integer> createInt(){
+    private Tree<Integer> createInt() {
         Tree<Integer> tr = new Tree<>();
-        for(int i = 0; i < 15; i++){
+        for(int i = 0; i < 15; i++) {
             tr.add(i);
         }
         tr.add(0);
         return tr;
     }
 
-    private Tree<myClass> createMyClass(){
+    private Tree<myClass> createMyClass() {
         Tree<myClass> tr = new Tree<>();
-        for(int i = 0; i < 5; i++){
-            for(int j = 0; j < 3; j++){
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 3; j++) {
                 tr.add(new myClass(i, j));
             }
         }
@@ -93,17 +115,17 @@ public class TreeTest{
         return tr;
     }
 
-    private class myClass implements Comparable<myClass>{
+    private class myClass implements Comparable<myClass> {
         private int x, y;
 
-        myClass(int xval, int yval){
+        myClass(int xval, int yval) {
             x = xval;
             y = yval;
         }
 
         @Override
-        public int compareTo(myClass myClass){
-            if (this.x == myClass.x){
+        public int compareTo(myClass myClass) {
+            if (this.x == myClass.x) {
                 return this.y - myClass.y;
             } else {
                 return this.x - myClass.x;
