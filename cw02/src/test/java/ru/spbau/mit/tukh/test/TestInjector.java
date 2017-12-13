@@ -1,6 +1,5 @@
 package ru.spbau.mit.tukh.test;
 
-import jdk.nashorn.internal.runtime.ECMAException;
 import org.junit.Test;
 import ru.spbau.mit.tukh.cw02.Injector;
 import ru.spbau.mit.tukh.testClasses.*;
